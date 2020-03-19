@@ -100,12 +100,13 @@ droit sur test :  drwxr-xr-x root root
 2) Retirez tous les droits sur ce fichier (même pour vous), puis essayez de le modifier et de l’afficher en tant que root. Conclusion ?
 >sudo chmod 000 fichier
 En tant que root le fichier s’affiche normalement (sudo)
-En tant qu’utilisateur, un ficheir vide s'ouvre 
+En tant qu’utilisateur, un ficheir vide s'ouvre.
 
 3) Redonnez vous les droits en écriture et exécution sur fichier puis exécutez la commande echo "echo
 Hello" > fichier. On a vu lors des TP précédents que cette commande remplace le contenu d’un
 fichier s’il existe déjà. Que peut-on dire au sujet des droits ?
->la commande est refusé car on n’a pas les droits d'écriture.
+>sudo chmod 600 fichier
+la commande est refusé car on n’a pas les droits d'écriture.
 
 4) Essayez d’exécuter le fichier. Est-ce que cela fonctionne ? Et avec sudo ? Expliquez.
 >On peut l’executer mais on ne voit pas le contenu.
@@ -114,39 +115,42 @@ Avec sudo on peut manipuler le fichier normalement.
 5. Placez-vous dans le répertoire test, et retirez-vous le droit en lecture pour ce répertoire. Listez le
 contenu du répertoire, puis exécutez ou affichez le contenu du fichier fichier. Qu’en déduisez-vous ?
 Rétablissez le droit en lecture sur test
->
+>Cela ne marche pas, il faut se mettre dans le repertoire précédent,pour executer : sudo chmod -R 333 test
+On a enlever les droits de lecture, ainsi en executant la commande ls dans le repertoire test, on a le message d'erreur :  Permission non accordée.
 
 6. Créez dans test un fichier nouveau ainsi qu’un répertoire sstest. Retirez au fichier nouveau et au
 répertoire test le droit en écriture. Tentez de modifier le fichier nouveau. Rétablissez ensuite le droit
 en écriture au répertoire test. Tentez de modifier le fichier nouveau, puis de le supprimer. Que pouvezvous déduire de toutes ces manipulations ?
->
+>sudo chmod 500 sstest nouveau
+Lorsque le repertoire parent a les droits d'ecriture alors il peut ecrire dans l'un de ses fichiers même si celui ci ne les a pas.
 
 7. Positionnez vous dans votre répertoire personnel, puis retirez le droit en exécution du répertoire test.
 Tentez de créer, supprimer, ou modifier un fichier dans le répertoire test, de vous y déplacer, d’en
 lister le contenu, etc…Qu’en déduisez vous quant au sens du droit en exécution pour les répertoires ?
->
+>On a enlevé les droits d'éxecution de test, comme c'est un dossier on ne peut pas rentrer dedans.
+Cela ne sert a rien car on ne peut plus parcourir les dossiers, mais pour les proteger cela est pertinent.
 
 8. Rétablissez le droit en exécution du répertoire test. Positionnez vous dans ce répertoire et retirez lui
 à nouveau le droit d’exécution. Essayez de créer, supprimer et modifier un fichier dans le répertoire
 test, de vous déplacer dans ssrep, de lister son contenu. Qu’en concluez-vous quant à l’influence des
 droits que l’on possède sur le répertoire courant ? Peut-on retourner dans le répertoire parent avec ”cd
 ..” ? Pouvez-vous donner une explication ?
->
+>sudo chmod a-x * enleve les droits a tout le monde (a-g-o) sur les fichiers a l'interieur. Mais on n'arrive pas à modifier les droits du dossier courant.
 
 9. Rétablissez le droit en exécution du répertoire test. Attribuez au fichier fichier les droits suffisants
 pour qu’une autre personne de votre groupe puisse y accéder en lecture, mais pas en écriture.
->
+>Même problème..
 
 10. Définissez un umask très restrictif qui interdit à quiconque à part vous l’accès en lecture ou en écriture,
 ainsi que la traversée de vos répertoires. Testez sur un nouveau fichier et un nouveau répertoire.
->
+>umask 077 les bits sont ici en non-et et donc le 0 autorise tout(rwx) et le 7 rien. 
 
 11. Définissez un umask très permissif qui autorise tout le monde à lire vos fichiers et traverser vos répertoires, mais n’autorise que vous à écrire. Testez sur un nouveau fichier et un nouveau répertoire.
->
+> umask 022 (2 correspond a w=write).
 
 12. Définissez un umask équilibré qui vous autorise un accès complet et autorise un accès en lecture aux
 membres de votre groupe. Testez sur un nouveau fichier et un nouveau répertoire.
->
+>umask 037
 
 13. Transcrivez les commandes suivantes de la notation classique à la notation octale ou vice-versa (vous
 pourrez vous aider de la commande stat pour valider vos réponses) :
@@ -154,9 +158,15 @@ pourrez vous aider de la commande stat pour valider vos réponses) :
 - chmod uo+w,g-rx fic en sachant que les droits initiaux de fic sont r--r-x---
 - chmod 653 fic en sachant que les droits initiaux de fic sont 711
 - chmod u+x,g=w,o-r fic en sachant que les droits initiaux de fic sont r--r-x---
->
+>-chmod 534 fic
+-chmod 620 fic
+-chmod u-x,g+r,o+w fic
+-chmod 520 fic
 
 14. Affichez les droits sur le programme passwd. Que remarquez-vous ? En affichant les droits du fichier
 /etc/passwd, pouvez-vous justifier les permissions sur le programme passwd ?
->
+>ls -l passwd
+Tout le monde a le droit de lecture mais seul l'utilisateur a le droit d'écriture et personne n'a le droit d'execution.
+
+
 
