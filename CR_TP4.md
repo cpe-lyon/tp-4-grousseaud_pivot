@@ -1,5 +1,5 @@
 
-# TP 4 administration système : baptiste mange des nazizis( c'est des zizis de nazis ??) 
+# TP 4 administration système 
 
 ## Exercice 1:
 
@@ -90,18 +90,22 @@ Quelle commande permet de forcer sudo à oublier votre mot de passe ?
 
 1) Dans votre $HOME, créez un dossier test, et dans ce dossier un fichier fichier contenant quelques
 lignes de texte. Quels sont les droits sur test et fichier ?
->droit sur fichier(ecrit) : -rw-r--r-- 1 root root
+
+> sudo mkdir test
+sudo nano fichier fichier
+Pour regarder les droits: ls -l
+droit sur fichier(ecrit) : -rw-r--r-- 1 root root
 droit sur test :  drwxr-xr-x root root
 
-2) Retirez tous les droits sur ce fichier (même pour vous), puis essayez de le modifier et de l’afficher en
-tant que root. Conclusion ?
->En tant que root le fichier s’affiche normalement 
-En tant qu’utilisateur non
+2) Retirez tous les droits sur ce fichier (même pour vous), puis essayez de le modifier et de l’afficher en tant que root. Conclusion ?
+>sudo chmod 000 fichier
+En tant que root le fichier s’affiche normalement (sudo)
+En tant qu’utilisateur, un ficheir vide s'ouvre 
 
 3) Redonnez vous les droits en écriture et exécution sur fichier puis exécutez la commande echo "echo
 Hello" > fichier. On a vu lors des TP précédents que cette commande remplace le contenu d’un
 fichier s’il existe déjà. Que peut-on dire au sujet des droits ?
->la commande est refusé car on n’a pas les droits d”écriture.
+>la commande est refusé car on n’a pas les droits d'écriture.
 
 4) Essayez d’exécuter le fichier. Est-ce que cela fonctionne ? Et avec sudo ? Expliquez.
 >On peut l’executer mais on ne voit pas le contenu.
