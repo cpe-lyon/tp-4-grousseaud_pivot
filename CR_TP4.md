@@ -23,7 +23,11 @@ grep - w nom_groupe /etc/groupe
 
 5) Faites de groupe1 le groupe propriétaire de /home/u1 et /home/u2 et de groupe2 le groupe propriétaire
 de /home/u3 et /home/u4
->
+>sudo usermod -m -d groupe1 u1
+sudo usermod -m -d groupe1 u2
+sudo usermod -m -d groupe2 u3
+sudo usermod -m -d groupe2 u4
+
 
 6) Remplacez le groupe primaire des utilisateurs :
 - groupe1 pour u1 et u2
@@ -38,7 +42,10 @@ associé.
 
 8) Comment faire pour que, dans ces dossiers, seul le propriétaire d’un fichier ait le droit de renommer
 ou supprimer ce fichier ?
->
+>sudo chmod go-rwx
+ou
+sudo chmod a-rwx
+sudo chmod u+rwx
 
 9) Pouvez-vous vous connecter en tant que u1 ? Pourquoi ?
 >on ne peut pas se cnnecter car on a pas définit de mdp, l'utilisateur est inactif jusqu'à la création d'un mdp. 
